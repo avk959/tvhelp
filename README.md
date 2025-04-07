@@ -1,2 +1,3 @@
 # tvhelp
-Helpers for TreeView
+Helpers for TreeView.
+Depends on LGenerics package.
