@@ -69,7 +69,7 @@ type
     procedure SaveToJson(aStream: TStream; aProps: TTvStoreProps = TV_STORE_MOST);
     function  SaveToJson(aProps: TTvStoreProps = TV_STORE_MOST): string;
     procedure SaveToJson(const aFileName: string; aProps: TTvStoreProps = TV_STORE_MOST);
-  { saves proprties as zlib-compressed JSON }
+  { saves properties as zlib-compressed JSON }
     function  SaveToZJson(aProps: TTvStoreProps = TV_STORE_MOST; aLevel: TCompressLevel = clDefault): TBytes;
     procedure SaveToZJson(const aFileName: string; aProps: TTvStoreProps = TV_STORE_MOST;
                           aLevel: TCompressLevel = clDefault);
@@ -395,14 +395,17 @@ end;
 function TTreeViewJsonHelper.SaveToZJson(aProps: TTvStoreProps; aLevel: TCompressLevel): TBytes;
 var
   bs: TBytesStream;
+  sz: SizeInt;
 begin
   bs := TBytesStream.Create;
   try
     DoSaveZJson(bs, aProps, aLevel);
     Result := bs.Bytes;
+    sz := bs.Size;
   finally
     bs.Free;
   end;
+  SetLength(Result, sz);
 end;
 
 procedure TTreeViewJsonHelper.SaveToZJson(const aFileName: string; aProps: TTvStoreProps; aLevel: TCompressLevel);
