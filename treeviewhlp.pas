@@ -91,7 +91,7 @@ implementation
 {$WARN 6058 OFF : Call to subroutine "$1" marked as inline is not inlined }
 
 uses
-  LgVector, LgJson;
+  LgHelpers, LgVector, LgJson;
 
 { TTreeNodeHelper }
 
@@ -203,7 +203,8 @@ var
   var
     I: Int64;
   begin
-    if not((Reader.TokenKind = tkNumber) and IsExactInt(Reader.AsNumber, I))then exit(False);
+    if not((Reader.TokenKind = tkNumber) and Double.IsExactInt(Reader.AsNumber, I))then
+      exit(False);
     Result := (I >= 0) and (I <= MaxInt);
     if Result then
       aValue := Integer(I);
